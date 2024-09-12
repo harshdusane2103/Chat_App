@@ -176,7 +176,7 @@ class SignUp extends StatelessWidget {
                           UserModel user = UserModel(
                               name: controller.txtName.text,
                               email:controller.txtEmail.text,
-                              image:"https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png",
+                              image:"https://marketplace.canva.com/EAFuJ5pCLLM/1/0/1600w/canva-black-and-gold-simple-business-man-linkedin-profile-picture-BM_NPo97JwE.jpg",
                               phone: controller.txtPhone.text,
                               token: "--------------------");
 
