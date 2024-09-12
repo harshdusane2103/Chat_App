@@ -1,16 +1,15 @@
-# chat_app
+<h1>Firebase Auth, Google Sign In, Add User to Cloud Fire Store </h1>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/f487a707-136e-49f0-b205-195da7169673">
+</div>
+<div align="center">
+  <video src="
+https://github.com/user-attachments/assets/8afb6900-bc2d-4bfb-a343-b10e87dc0e1e">
+</div>
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
