@@ -56,7 +56,7 @@ class GetStartScreeen extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height:20,
+            height:60,
           ),
 
           GestureDetector(
@@ -64,7 +64,7 @@ class GetStartScreeen extends StatelessWidget {
               Get.toNamed('/singUp');
             },
             child: Container(
-              height: 40,
+              height: 50,
               width: 180,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -78,14 +78,14 @@ class GetStartScreeen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           GestureDetector(
             onTap: () async {
               Get.toNamed('/singIn');
             },
             child: Container(
-              height: 40,
+              height: 50,
               width: 180,
               decoration: BoxDecoration(
                 color: Colors.white,

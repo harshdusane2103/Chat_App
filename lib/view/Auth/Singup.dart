@@ -1,13 +1,16 @@
 import 'package:chat_app/Controller/auth_controller.dart';
+import 'package:chat_app/Modal/user_modal.dart';
 import 'package:chat_app/Services/auth_services.dart';
+import 'package:chat_app/Services/cloud_firestroe_service.dart';
 import 'package:chat_app/view/Auth/singin.dart';
 import 'package:chat_app/view/Home/home.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-bool ischeck = false;
+bool isCheck = true;
 
-var controller = Get.put(AuthController());
+var controller = Get.put(Authcontroller());
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -24,7 +27,7 @@ class SignUp extends StatelessWidget {
           children: [
             Container(
               margin: EdgeInsets.all(20),
-              height: 600,
+              height: 628,
               width: 360,
               decoration: BoxDecoration(
                   border: Border.all(
@@ -60,8 +63,26 @@ class SignUp extends StatelessWidget {
                       height: 30,
                     ),
                     TextField(
+                      controller: controller.txtName,
+                      decoration: InputDecoration(
+                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
+
+                          labelText: 'Name',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                          prefixIcon: Icon(
+                            Icons.account_circle_outlined,
+                          )),
+                    ),
+                    SizedBox(height: 8,),
+
+
+                    TextField(
                       controller: controller.txtEmail,
                       decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
                           labelText: 'Email',
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
@@ -69,10 +90,39 @@ class SignUp extends StatelessWidget {
                             Icons.email_outlined,
                           )),
                     ),
+                    SizedBox(height: 8,),
+                    TextField(
+                      controller: controller.txtPhone,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
+                          labelText: 'Phone',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                          prefixIcon: Icon(
+                            Icons.call,
+                          )),
+                    ),
+                    SizedBox(height: 8,),
                     TextField(
                       controller: controller.txtPassword,
                       decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
                           labelText: 'Password',
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                          prefixIcon: Icon(
+                            Icons.lock_outline_rounded,
+                          )),
+                    ),
+                    SizedBox(height: 8,),
+                    TextField(
+                      controller: controller.txtConfirmPassword,
+                      decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
+                          labelText: 'ConfromPassword',
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                           prefixIcon: Icon(
@@ -85,43 +135,61 @@ class SignUp extends StatelessWidget {
                     Row(
                       children: [
                         Checkbox(
-                          value: ischeck,
+                          value: isCheck,
                           onChanged: (value) {},
                         ),
-                       Column(
-                         children: [
-                           Row(
-                             children: [
-                               Text(
-                                 'I agree with the ',
-                                 style: TextStyle(
-                                     color: Colors.black, fontWeight: FontWeight.bold),
-                               ),
-                               Text(
-                                 'Terms and condition  ',
-                                 style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                               ),
-                             ],
-                           ),
-                           Text(
-                             'and the privacy policy  ',
-                             style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold ),
-                           ),
-                         ],
-                       )
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'I agree with the ',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'Terms and condition  ',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'and the privacy policy  ',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
                       ],
                     ),
-                    SizedBox(height: 20,),
-
+                    SizedBox(
+                      height: 20,
+                    ),
                     GestureDetector(
-                      onTap: () {
-                        AuthService.authService
-                            .createAccountWithEmailAndPassword(
-                                controller.txtEmail.text,
-                                controller.txtPassword.text);
-                        controller.txtEmail.clear();
-                        controller.txtPassword.clear();
-                        Get.offAll(HomeScreen());
+                      onTap: () async {
+                        if (controller.txtPassword.text == controller.txtConfirmPassword.text) {
+                           await AuthService.authService.createAccountWithEmailAndPassword(controller.txtEmail.text, controller.txtPassword.text);
+                          UserModel user = UserModel(
+                              name: controller.txtName.text,
+                              email:controller.txtEmail.text,
+                              image:"https://png.pngtree.com/png-clipart/20231019/original/pngtree-user-profile-avatar-png-image_13369988.png",
+                              phone: controller.txtPhone.text,
+                              token: "--------------------");
+
+                        CloudFireStoreService.cloudFireStoreService.insertUserIntoFireStore(user);
+                         // Get.back();
+
+                          Get.offAll(HomeScreen());
+                          controller.txtEmail.clear();
+                          controller.txtPassword.clear();
+                          controller.txtName.clear();
+                          controller.txtPhone.clear();
+                          controller.txtConfirmPassword.clear();
+                        }
                       },
                       child: Container(
                         height: 40,

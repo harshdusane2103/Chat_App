@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import 'Singup.dart';
-  var controller=Get.put(AuthController());
+  var controller=Get.put(Authcontroller());
 class SingIn extends StatelessWidget {
   const SingIn({super.key});
 
@@ -67,6 +67,8 @@ class SingIn extends StatelessWidget {
                     TextField(
                       controller: controller.txtEmail,
                       decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
                           labelText: 'Email',
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
@@ -74,9 +76,12 @@ class SingIn extends StatelessWidget {
                             Icons.email_outlined,
                           )),
                     ),
+                    SizedBox(height: 8,),
                     TextField(
                       controller: controller.txtPassword,
                       decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
                           labelText: 'Password',
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
@@ -100,7 +105,7 @@ class SingIn extends StatelessWidget {
                         }
                         else
                         {
-                          Get.snackbar('singin in failed', response);
+                          Get.snackbar('signIn in failed', response);
                         }
 
                       },
@@ -118,6 +123,12 @@ class SingIn extends StatelessWidget {
                             )),
                       ),
                     ),
+
+
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text('OR'),
                     SizedBox(
                       height: 8,
                     ),
@@ -131,6 +142,9 @@ class SingIn extends StatelessWidget {
                         }
 
                     }),
+                    SizedBox(
+                      height: 8,
+                    ),
                     GestureDetector(
                       onTap: () {
                         Get.off(SignUp());

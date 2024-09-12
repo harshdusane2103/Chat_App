@@ -3,6 +3,7 @@ import 'package:chat_app/view/Auth/auth_manger.dart';
 import 'package:chat_app/view/Auth/get_start.dart';
 import 'package:chat_app/view/Auth/singin.dart';
 import 'package:chat_app/view/Home/home.dart';
+import 'package:chat_app/view/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: '/', page:()=>GetStartScreeen()),
+        GetPage(name: '/', page:()=>SplashScreen()),
+        GetPage(name: '/start', page:()=>GetStartScreeen()),
         GetPage(name: '/auth', page:()=>AuthManger()),
         GetPage(name: '/singIn', page:()=>SingIn()),
         GetPage(name: '/singUp', page:()=>SignUp()),
