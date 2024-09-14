@@ -8,7 +8,7 @@ import 'package:chat_app/view/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-bool isCheck = true;
+
 
 var controller = Get.put(Authcontroller());
 
@@ -134,10 +134,13 @@ class SignUp extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Checkbox(
-                          value: isCheck,
-                          onChanged: (value) {},
+                        Obx(()=>
+                           Checkbox(value: controller.rememberMeCheck.value, onChanged:  (value) {
+                            (controller.rememberMeCheck.value =
+                                value ?? false);
+                          },),
                         ),
+
                         Column(
                           children: [
                             Row(
@@ -166,6 +169,8 @@ class SignUp extends StatelessWidget {
                         )
                       ],
                     ),
+
+
                     SizedBox(
                       height: 20,
                     ),
@@ -181,8 +186,6 @@ class SignUp extends StatelessWidget {
                               token: "--------------------");
 
                         CloudFireStoreService.cloudFireStoreService.insertUserIntoFireStore(user);
-                         // Get.back();
-
                           Get.offAll(HomeScreen());
                           controller.txtEmail.clear();
                           controller.txtPassword.clear();

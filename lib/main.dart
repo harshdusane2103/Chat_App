@@ -2,6 +2,7 @@ import 'package:chat_app/view/Auth/Singup.dart';
 import 'package:chat_app/view/Auth/auth_manger.dart';
 import 'package:chat_app/view/Auth/get_start.dart';
 import 'package:chat_app/view/Auth/singin.dart';
+import 'package:chat_app/view/Home/chatpage.dart';
 import 'package:chat_app/view/Home/home.dart';
 import 'package:chat_app/view/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,12 +27,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: [
-        GetPage(name: '/', page:()=>SplashScreen()),
-        GetPage(name: '/start', page:()=>GetStartScreeen()),
-        GetPage(name: '/auth', page:()=>AuthManger()),
-        GetPage(name: '/singIn', page:()=>SingIn()),
-        GetPage(name: '/singUp', page:()=>SignUp()),
-        GetPage(name: '/home', page:()=>HomeScreen()),
+        GetPage(name: '/', page:()=>SplashScreen(),transition: Transition.rightToLeft),
+        GetPage(name: '/start', page:()=>GetStartScreeen(),transition: Transition.rightToLeft),
+        GetPage(name: '/auth', page:()=>AuthManger(),transition: Transition.rightToLeft),
+        GetPage(name: '/singIn', page:()=>SingIn(),transition: Transition.rightToLeft),
+        GetPage(name: '/singUp', page:()=>SignUp(),transition: Transition.rightToLeft),
+        GetPage(name: '/home', page:()=>HomeScreen(),transition: Transition.rightToLeft),
+        GetPage(name: '/chat', page:()=>ChatScreen(),transition: Transition.rightToLeft),
       ],
     );
   }

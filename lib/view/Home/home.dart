@@ -1,3 +1,4 @@
+import 'package:chat_app/Controller/chatController.dart';
 import 'package:chat_app/Modal/user_modal.dart';
 import 'package:chat_app/Services/auth_services.dart';
 import 'package:chat_app/Services/cloud_firestroe_service.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../Auth/get_start.dart';
+var chatController=Get.put(ChatController());
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -85,6 +87,10 @@ class HomeScreen extends StatelessWidget {
                   itemCount: userList.length,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onTap: () {
+                        chatController.getReceiver(userList[index].email!, userList[index].name!);
+                        Get.toNamed('/chat');
+                      },
                       leading: CircleAvatar(backgroundImage: NetworkImage(userList[index].image!),),
 
                       title: Text(userList[index].name!),
