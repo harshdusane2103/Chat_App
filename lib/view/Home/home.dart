@@ -86,8 +86,10 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: CircleAvatar(backgroundImage: NetworkImage(userList[index].image!),),
+
                       title: Text(userList[index].name!),
                      subtitle: Text(userList[index].email!),
+
                     );
                   });
             })

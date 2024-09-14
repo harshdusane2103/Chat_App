@@ -8,17 +8,20 @@ import 'package:get/get.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import 'Singup.dart';
-  var controller=Get.put(Authcontroller());
+
+var controller = Get.put(Authcontroller());
+
 class SingIn extends StatelessWidget {
   const SingIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('SignIn'),),
+      appBar: AppBar(
+        title: Text('SignIn'),
+      ),
       body: SingleChildScrollView(
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
@@ -67,8 +70,14 @@ class SingIn extends StatelessWidget {
                     TextField(
                       controller: controller.txtEmail,
                       decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blue, width: 1),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blue, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
                           labelText: 'Email',
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
@@ -76,12 +85,20 @@ class SingIn extends StatelessWidget {
                             Icons.email_outlined,
                           )),
                     ),
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 8,
+                    ),
                     TextField(
                       controller: controller.txtPassword,
                       decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blue, width: 1),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.blue, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
                           labelText: 'Password',
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
@@ -92,22 +109,21 @@ class SingIn extends StatelessWidget {
                     SizedBox(
                       height: 30,
                     ),
-
-                    SizedBox(height: 20,),
-
+                    SizedBox(
+                      height: 20,
+                    ),
                     GestureDetector(
                       onTap: () async {
-                        String response= await AuthService.authService.signInwithEmailAndPassword(controller.txtEmail.text,controller.txtPassword.text);
-                        User? user= AuthService.authService.getCurrentUser();
-                        if(user!=null)
-                        {
+                        String response = await AuthService.authService
+                            .signInwithEmailAndPassword(
+                                controller.txtEmail.text,
+                                controller.txtPassword.text);
+                        User? user = AuthService.authService.getCurrentUser();
+                        if (user != null) {
                           Get.offAndToNamed('/home');
-                        }
-                        else
-                        {
+                        } else {
                           Get.snackbar('signIn in failed', response);
                         }
-
                       },
                       child: Container(
                         height: 40,
@@ -118,13 +134,11 @@ class SingIn extends StatelessWidget {
                         ),
                         child: Center(
                             child: Text(
-                              'SignIn',
-                              style: TextStyle(color: Colors.white, fontSize: 18),
-                            )),
+                          'SignIn',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )),
                       ),
                     ),
-
-
                     SizedBox(
                       height: 8,
                     ),
@@ -132,15 +146,13 @@ class SingIn extends StatelessWidget {
                     SizedBox(
                       height: 8,
                     ),
-                    SignInButton(Buttons.google, onPressed:() async {
-                      await GoogleAuthService.googleAuthService.signInWithGoogle();
-                      User? user= AuthService.authService.getCurrentUser();
-                      if(user!=null)
-                        {
-                          Get.offAll(HomeScreen());
-
-                        }
-
+                    SignInButton(Buttons.google, onPressed: () async {
+                      await GoogleAuthService.googleAuthService
+                          .signInWithGoogle();
+                      User? user = AuthService.authService.getCurrentUser();
+                      if (user != null) {
+                        Get.offAll(HomeScreen());
+                      }
                     }),
                     SizedBox(
                       height: 8,
@@ -153,7 +165,7 @@ class SingIn extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                           'Don\'t have account ?',
+                            'Don\'t have account ?',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
@@ -170,22 +182,20 @@ class SingIn extends StatelessWidget {
               ),
             ),
 
-
-
-        //     ElevatedButton(onPressed: () async {
-        //      String response= await AuthService.authService.signInwithEmailAndPassword(controller.txtEmail.text,controller.txtPassword.text);
-        //       User? user= AuthService.authService.getCurrentUser();
-        //       if(user!=null)
-        //         {
-        //           Get.offAndToNamed('/home');
-        // }
-        //       else
-        //         {
-        //           Get.snackbar('singin in failed', response);
-        //         }
-        //
-        //
-        //     }, child: Text('SingIn'))
+            //     ElevatedButton(onPressed: () async {
+            //      String response= await AuthService.authService.signInwithEmailAndPassword(controller.txtEmail.text,controller.txtPassword.text);
+            //       User? user= AuthService.authService.getCurrentUser();
+            //       if(user!=null)
+            //         {
+            //           Get.offAndToNamed('/home');
+            // }
+            //       else
+            //         {
+            //           Get.snackbar('singin in failed', response);
+            //         }
+            //
+            //
+            //     }, child: Text('SingIn'))
           ],
         ),
       ),
