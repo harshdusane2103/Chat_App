@@ -13,13 +13,41 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text(chatController.receiverName.value),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(chatController.receiverName.value),
+            StreamBuilder(
+              stream: CloudFireStoreService.cloudFireStoreService
+                  .findUserIsOnlineOrNot(),
+              builder: (context, snapshot) {
+                Map? users = snapshot.data!.data();
+                return Text(
+                  users!['isOnline'] ? 'online' : 'offline',
+                  style: TextStyle(fontSize: 12, color: Colors.green),
+                );
+              },
+            )
+          ],
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: Container(
+        height: h,
+        width: w,
+        decoration: BoxDecoration(
+            // image: DecorationImage(
+            //     fit: BoxFit.cover,
+            //     image: AssetImage('assets/image/bg2.jpeg')
+            //
+            // )
+            ),
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
                 child: StreamBuilder(
@@ -38,13 +66,77 @@ class ChatScreen extends StatelessWidget {
                 }
                 List data = snapshot.data!.docs;
                 List<ChatModel> chatList = [];
+                List<String> docIdList = [];
                 for (QueryDocumentSnapshot snap in data) {
+                  docIdList.add(snap.id);
                   chatList.add(ChatModel.fromMap(snap.data() as Map));
                 }
-                return ListView.builder(
-                  itemBuilder: (context, index) =>
-                      Text(chatList[index].message!.toString()),
-                  itemCount: chatList.length,
+                return SingleChildScrollView(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.end,
+                    children: List.generate(
+                      chatList.length,
+                      (index) => GestureDetector(
+                        onLongPress: () {
+                          if (chatList[index].sender !=
+                              AuthService.authService
+                                  .getCurrentUser()!
+                                  .email!) {
+                            chatController.txtUpdateMessage =
+                                TextEditingController(
+                                    text: chatList[index].message);
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('update'),
+                                  content: TextField(
+                                    controller: chatController.txtUpdateMessage,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          String dcId = docIdList[index];
+                                          CloudFireStoreService
+                                              .cloudFireStoreService
+                                              .updateChat(
+                                                  chatController
+                                                      .receiverEmail.value,
+                                                  chatController
+                                                      .txtUpdateMessage.text,
+                                                  dcId);
+                                          Get.back();
+                                        },
+                                        child: Text('Update')),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        onDoubleTap: () {
+                          CloudFireStoreService.cloudFireStoreService
+                              .removeChat(docIdList[index],
+                                  chatController.receiverEmail.value);
+                        },
+                        child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            alignment: (chatList[index].sender ==
+                                    AuthService.authService
+                                        .getCurrentUser()!
+                                        .email!)
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            child: Text(
+                              chatList[index].message!.toString(),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                    ),
+                  ),
                 );
               },
             )),
@@ -62,6 +154,7 @@ class ChatScreen extends StatelessWidget {
                             time: Timestamp.now());
                         await CloudFireStoreService.cloudFireStoreService
                             .addChatInFireStore(chat);
+                        chatController.txtMessage.clear();
                       },
                       icon: Icon(Icons.send))),
             ),

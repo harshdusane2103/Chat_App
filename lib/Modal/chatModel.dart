@@ -18,7 +18,7 @@ class ChatModel {
         time: m1['time']);
   }
 
-   Map<String, Object?> toMap(ChatModel chat) {
+   Map<String, dynamic> toMap(ChatModel chat) {
     return {
       'sender': chat.sender,
       'receiver': chat.receiver,

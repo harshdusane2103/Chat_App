@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds:3), () {
-      Get.offAndToNamed('/start');
+      Get.offAndToNamed('/auth');
     });
     return Scaffold(
       body: Column(
