@@ -1,3 +1,5 @@
+import 'package:chat_app/Controller/ThemeMode/ThemeController.dart';
+import 'package:chat_app/Services/local_notification_service.dart';
 import 'package:chat_app/view/Auth/Singup.dart';
 import 'package:chat_app/view/Auth/auth_manger.dart';
 import 'package:chat_app/view/Auth/get_start.dart';
@@ -16,6 +18,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await LocalNotificationService.notificationService..initNotificationService();
+  Get.put(ThemeController());
   runApp(const MyApp());
 }
 
@@ -24,17 +28,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      getPages: [
-        GetPage(name: '/', page:()=>SplashScreen(),transition: Transition.rightToLeft),
-        GetPage(name: '/start', page:()=>GetStartScreeen(),transition: Transition.rightToLeft),
-        GetPage(name: '/auth', page:()=>AuthManger(),transition: Transition.rightToLeft),
-        GetPage(name: '/singIn', page:()=>SingIn(),transition: Transition.rightToLeft),
-        GetPage(name: '/singUp', page:()=>SignUp(),transition: Transition.rightToLeft),
-        GetPage(name: '/home', page:()=>HomeScreen(),transition: Transition.rightToLeft),
-        GetPage(name: '/chat', page:()=>ChatScreen(),transition: Transition.rightToLeft),
-      ],
+    final ThemeController themeController = Get.put(ThemeController());
+    return Obx(
+      ()=>GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: themeController.currentTheme,
+        // theme: ThemeData.light(),
+        // darkTheme: ThemeData.dark(),
+        // themeMode: themeController.isDark ? ThemeMode.dark : ThemeMode.light,
+        getPages: [
+          GetPage(name: '/', page:()=>SplashScreen(),transition: Transition.rightToLeft),
+          GetPage(name: '/start', page:()=>GetStartScreeen(),transition: Transition.rightToLeft),
+          GetPage(name: '/auth', page:()=>AuthManger(),transition: Transition.rightToLeft),
+          GetPage(name: '/singIn', page:()=>SingIn(),transition: Transition.rightToLeft),
+          GetPage(name: '/singUp', page:()=>SignUp(),transition: Transition.rightToLeft),
+          GetPage(name: '/home', page:()=>HomeScreen(),transition: Transition.rightToLeft),
+          GetPage(name: '/chat', page:()=>ChatScreen(),transition: Transition.rightToLeft),
+        ],
+      ),
     );
   }
 }

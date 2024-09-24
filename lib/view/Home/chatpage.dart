@@ -2,6 +2,7 @@ import 'package:chat_app/Controller/chatController.dart';
 import 'package:chat_app/Modal/chatModel.dart';
 import 'package:chat_app/Services/auth_services.dart';
 import 'package:chat_app/Services/cloud_firestroe_service.dart';
+import 'package:chat_app/Services/local_notification_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +48,7 @@ class ChatScreen extends StatelessWidget {
             // )
             ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
                 child: StreamBuilder(
@@ -73,12 +74,13 @@ class ChatScreen extends StatelessWidget {
                 }
                 return SingleChildScrollView(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     // mainAxisAlignment: MainAxisAlignment.end,
                     children: List.generate(
                       chatList.length,
                       (index) => GestureDetector(
                         onLongPress: () {
-                          if (chatList[index].sender !=
+                          if (chatList[index].sender ==
                               AuthService.authService
                                   .getCurrentUser()!
                                   .email!) {
@@ -97,11 +99,7 @@ class ChatScreen extends StatelessWidget {
                                     TextButton(
                                         onPressed: () {
                                           String dcId = docIdList[index];
-                                          CloudFireStoreService
-                                              .cloudFireStoreService
-                                              .updateChat(
-                                                  chatController
-                                                      .receiverEmail.value,
+                                          CloudFireStoreService.cloudFireStoreService.updateChat(chatController.receiverEmail.value,
                                                   chatController
                                                       .txtUpdateMessage.text,
                                                   dcId);
@@ -119,25 +117,77 @@ class ChatScreen extends StatelessWidget {
                               .removeChat(docIdList[index],
                                   chatController.receiverEmail.value);
                         },
-                        child: Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
+                        child:
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 8, right: 14, left: 14),
+                          child: Container(
                             alignment: (chatList[index].sender ==
+                                AuthService.authService
+                                    .getCurrentUser()!
+                                    .email!)
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+
+                            child: Container(
+
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: (chatList[index].sender ==
                                     AuthService.authService
                                         .getCurrentUser()!
                                         .email!)
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
-                            child: Text(
-                              chatList[index].message!.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            )),
+                                    ? Color(0xff3D4A74)
+                                    : Color(0xffF2F7FB),
+                                borderRadius: (chatList[index].sender ==
+                                    AuthService.authService
+                                        .getCurrentUser()!
+                                        .email!)
+                                    ? BorderRadius.only(
+                                  topLeft: Radius.circular(13),
+                                  bottomLeft: Radius.circular(13),
+                                  bottomRight: Radius.circular(13),
+                                )
+                                    : BorderRadius.only(
+                                  topRight: Radius.circular(13),
+                                  bottomLeft: Radius.circular(13),
+                                  bottomRight: Radius.circular(13),
+                                ),
+                              ),
+                              child:Text(chatList[index].message!.toString(),
+                                        style: TextStyle(
+                                            // color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                            )
+
+                          ),
+
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Container(
+                            //       margin: EdgeInsets.symmetric(
+                            //           horizontal: 8, vertical: 2),
+                            //
+                            //       alignment: (chatList[index].sender ==
+                            //               AuthService.authService
+                            //                   .getCurrentUser()!
+                            //                   .email!)
+                            //           ? Alignment.centerRight
+                            //           : Alignment.centerLeft,
+                            //       child: Text(chatList[index].message!.toString(),
+                            //         style: TextStyle(
+                            //             // color: Colors.black,
+                            //             fontWeight: FontWeight.bold),
+                            //       )),
+                            // ),
+                        ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
+                  );
+
+                  
+                
               },
             )),
             TextField(
@@ -154,6 +204,7 @@ class ChatScreen extends StatelessWidget {
                             time: Timestamp.now());
                         await CloudFireStoreService.cloudFireStoreService
                             .addChatInFireStore(chat);
+                        await LocalNotificationService.notificationService.showNotification(AuthService.authService.getCurrentUser()!.email!,chatController.txtMessage.text );
                         chatController.txtMessage.clear();
                       },
                       icon: Icon(Icons.send))),

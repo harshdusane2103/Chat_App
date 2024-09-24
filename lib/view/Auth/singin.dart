@@ -21,10 +21,10 @@ class SingIn extends StatelessWidget {
         title: Text('SignIn'),
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
         child: Container(
           margin: EdgeInsets.all(20),
-          height: 671,
+          height: 620,
           width: 360,
           decoration: BoxDecoration(
               border: Border.all(
@@ -35,13 +35,14 @@ class SingIn extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 50,),
 
                 Text(
                   "SignIn",
                   style: TextStyle(
-                      color: Colors.black,
+                      // color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 28),
                 ),
@@ -51,17 +52,17 @@ class SingIn extends StatelessWidget {
                 Text(
                   "Remember to get up & stretch once",
                   style: TextStyle(
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ),
                 Text(
                   "in a  while-your friends at chat",
                   style: TextStyle(
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
                 ),
                 SizedBox(
-                  height: 7,
+                  height: 16,
                 ),
                 TextField(
                   controller: controller.txtEmail,
@@ -81,9 +82,7 @@ class SingIn extends StatelessWidget {
                         Icons.email_outlined,
                       )),
                 ),
-                SizedBox(
-                  height: 8,
-                ),
+                SizedBox(height: 12,),
                 TextField(
                   controller: controller.txtPassword,
                   decoration: InputDecoration(
@@ -118,7 +117,7 @@ class SingIn extends StatelessWidget {
                     }
                   },
                   child: Container(
-                    height: 40,
+                    height: 50,
                     width: 180,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -139,16 +138,17 @@ class SingIn extends StatelessWidget {
                   height: 8,
                 ),
                 SignInButton(Buttons.google, onPressed: () async {
-                  await GoogleAuthService.googleAuthService
-                      .signInWithGoogle();
+                  await GoogleAuthService.googleAuthService.signInWithGoogle();
                   User? user = AuthService.authService.getCurrentUser();
                   if (user != null) {
-                    Get.offAll(HomeScreen());
+                    Get.offAll(
+                        HomeScreen());
                   }
                 }),
                 SizedBox(
                   height: 8,
                 ),
+                // signup button
                 GestureDetector(
                   onTap: () {
                     Get.off(SignUp());
@@ -159,12 +159,13 @@ class SingIn extends StatelessWidget {
                       Text(
                         'Don\'t have account ?',
                         style: TextStyle(
-                            color: Colors.black,
+                            // color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
+                      SizedBox(width: 2,),
                       Text(
                         'signUp',
-                        style: TextStyle(color: Colors.blue, fontSize: 18),
+                        style: TextStyle(color: Colors.blue, fontSize:20),
                       ),
                     ],
                   ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 class Authcontroller extends GetxController
 {
+
   RxBool isCheck = false.obs;
   TextEditingController txtEmail=TextEditingController();
   TextEditingController txtPassword=TextEditingController();
@@ -15,6 +16,8 @@ class Authcontroller extends GetxController
   void obscureCheck() {
     _obscure.value = !_obscure.value;
   }
+
+
 
 
 }

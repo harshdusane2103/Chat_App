@@ -1,14 +1,18 @@
+import 'package:chat_app/Controller/ThemeMode/ThemeController.dart';
 import 'package:chat_app/Controller/chatController.dart';
 import 'package:chat_app/Modal/user_modal.dart';
 import 'package:chat_app/Services/auth_services.dart';
 import 'package:chat_app/Services/cloud_firestroe_service.dart';
 import 'package:chat_app/Services/google_auth_services.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Auth/get_start.dart';
 
 var chatController = Get.put(ChatController());
+var themeController=Get.put(ThemeController());
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -51,6 +55,32 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Homepage"),
         actions: [
+          // CupertinoSwitch(
+          //   value: themeController.currentTheme,
+          //   onChanged: (value) => themeController.toggleTheme(),
+          //   activeColor: Color(0xFF4379F2),
+          //   offLabelColor: Colors.white,
+          //   focusColor: Colors.white,
+          //   onLabelColor: Colors.white,
+          //   trackColor: Colors.grey,
+          // ),
+          Obx(
+          ()=> Switch(
+              value: themeController.isDarkMode.value,
+              onChanged: (value) {
+                themeController.toggleTheme();
+
+
+
+
+              },
+            activeColor: Colors.white,
+            ),
+          ),
+          // ElevatedButton(
+          //   onPressed: themeController.toggleTheme,
+          //   child: Text('Toggle Theme'),
+          // ),
           IconButton(
               onPressed: () async {
                 await AuthService.authService.singOutUser();

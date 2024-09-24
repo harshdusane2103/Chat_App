@@ -46,7 +46,7 @@ class SignUp extends StatelessWidget {
                     Text(
                       "Register",
                       style: TextStyle(
-                          color: Colors.black,
+
                           fontWeight: FontWeight.bold,
                           fontSize: 28),
                     ),
@@ -56,7 +56,7 @@ class SignUp extends StatelessWidget {
                     Text(
                       "You and your friends always connceted ",
                       style: TextStyle(
-                        color: Colors.black,
+                        // color: Colors.black,
                       ),
                     ),
                     SizedBox(
@@ -91,19 +91,19 @@ class SignUp extends StatelessWidget {
                           )),
                     ),
                     SizedBox(height: 8,),
-                    TextField(
-                      controller: controller.txtPhone,
-                      decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
-                          labelText: 'Phone',
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                          prefixIcon: Icon(
-                            Icons.call,
-                          )),
-                    ),
-                    SizedBox(height: 8,),
+                    // TextField(
+                    //   controller: controller.txtPhone,
+                    //   decoration: InputDecoration(
+                    //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 1),borderRadius: BorderRadius.circular(10)),
+                    //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue,width: 2),borderRadius: BorderRadius.circular(10)),
+                    //       labelText: 'Phone',
+                    //       labelStyle: TextStyle(
+                    //           fontWeight: FontWeight.bold, fontSize: 20),
+                    //       prefixIcon: Icon(
+                    //         Icons.call,
+                    //       )),
+                    // ),
+                    // SizedBox(height: 8,),
                     TextField(
                       controller: controller.txtPassword,
                       decoration: InputDecoration(
@@ -148,7 +148,7 @@ class SignUp extends StatelessWidget {
                                 Text(
                                   'I agree with the ',
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      // color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
@@ -195,7 +195,7 @@ class SignUp extends StatelessWidget {
                         }
                       },
                       child: Container(
-                        height: 40,
+                        height: 50,
                         width: 180,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -222,12 +222,13 @@ class SignUp extends StatelessWidget {
                           Text(
                             'Already have account ?',
                             style: TextStyle(
-                                color: Colors.black,
+                                // color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(width:2,),
                           Text(
                             'signIn',
-                            style: TextStyle(color: Colors.blue, fontSize: 18),
+                            style: TextStyle(color: Colors.blue, fontSize: 20),
                           ),
                         ],
                       ),
