@@ -137,8 +137,8 @@ class ChatScreen extends StatelessWidget {
                                     AuthService.authService
                                         .getCurrentUser()!
                                         .email!)
-                                    ? Color(0xff3D4A74)
-                                    : Color(0xffF2F7FB),
+                                    ? Color(0xff41B3A2)
+                                    : Color(0xffA594F9),
                                 borderRadius: (chatList[index].sender ==
                                     AuthService.authService
                                         .getCurrentUser()!
