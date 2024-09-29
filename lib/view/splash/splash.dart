@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds:3), () {
+    Timer(Duration(seconds:8), () {
       Get.offAndToNamed('/auth');
     });
     return Scaffold(
@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
               width: 300,
               decoration: BoxDecoration(
                 // color: Colors.red,
-                image: DecorationImage(fit:BoxFit.cover,image: AssetImage('assets/image/logo1.png')),
+                image: DecorationImage(fit:BoxFit.cover,image: AssetImage('assets/image/logo3.gif')),
               ),
 
             ),

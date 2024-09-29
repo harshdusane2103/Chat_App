@@ -19,6 +19,9 @@ class CloudFireStoreService {
       'phone': user.phone,
       'image': user.image,
       'token': user.token,
+      'isOnline':false,
+      'isTyping0':false,
+      'timestamp':Timestamp.now(),
     });
   }
 
@@ -54,7 +57,7 @@ class CloudFireStoreService {
   {
     String sender= AuthService.authService.getCurrentUser()!.email!;
     List doc=[sender,receiver];
-    doc.sort;
+    doc.sort();
     String docId=doc.join("_");
     return fireStore.collection("chatroom").doc(docId).collection("chat").orderBy("time",descending: false).snapshots();
   }
@@ -64,7 +67,7 @@ class CloudFireStoreService {
   async {
     String sender= AuthService.authService.getCurrentUser()!.email!;
     List doc=[sender,receiver];
-    doc.sort;
+    doc.sort();
     String docId=doc.join("_");
     await fireStore.collection("chatroom").doc(docId).collection("chat").doc(dcId).update({'message':message},);
   }
@@ -72,19 +75,38 @@ class CloudFireStoreService {
   async {
     String sender= AuthService.authService.getCurrentUser()!.email!;
     List doc=[sender,receiver];
-    doc.sort;
+    doc.sort();
     String docId=doc.join("_");
     await fireStore.collection("chatroom").doc(docId).collection("chat").doc(dcId).delete();
   }
-  Future<void> changeOnlineStatus(bool status)
-  async {
-    String email= AuthService.authService.getCurrentUser()!.email!;
-    await fireStore.collection("user").doc(email).update({'isOnline':status});
-  }
-  Stream<DocumentSnapshot<Map<String, dynamic>>> findUserIsOnlineOrNot()
-  {
-    String email=AuthService.authService.getCurrentUser()!.email!;
-    return fireStore.collection("user").doc(email).snapshots();
+  Future<void> toggleOnlineStatus(
+      bool status, Timestamp timestamp, bool isTyping) async {
+    String email = AuthService.authService.getCurrentUser()!.email!;
+    await fireStore.collection("users").doc(email).update({
+      'isOnline': status,
+      'timestamp': timestamp,
+      'isTyping': isTyping,
+    });
   }
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> checkUserIsOnlineOrNot(
+      String email) {
+    return fireStore.collection("users").doc(email).snapshots();
+  }
+
+
 }
+
+
+
+
+// Future<void> changeOnlineStatus(bool status)
+// async {
+//   String email= AuthService.authService.getCurrentUser()!.email!;
+//   await fireStore.collection("user").doc(email).update({'isOnline':status});
+// }
+// Stream<DocumentSnapshot<Map<String, dynamic>>> findUserIsOnlineOrNot()
+// {
+//   String email=AuthService.authService.getCurrentUser()!.email!;
+//   return fireStore.collection("user").doc(email).snapshots();
+// }

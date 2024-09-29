@@ -6,6 +6,8 @@ class ChatController extends GetxController
 {
   RxString receiverEmail="".obs;
   RxString receiverName="".obs;
+  RxString image="".obs;
+
   TextEditingController txtMessage=TextEditingController();
   TextEditingController txtUpdateMessage=TextEditingController();
   void getReceiver(String email,String name)
@@ -13,19 +15,23 @@ class ChatController extends GetxController
     receiverEmail.value=email;
     receiverName.value=name;
   }
-  @override
-  void onInit()
+  void getImage(String url)
   {
-    super.onInit();
-    CloudFireStoreService.cloudFireStoreService.changeOnlineStatus(true);
+    image.value=url;
   }
-  @override
-  // TODO: implement isClosed
-  void onClose()
-  {
-    super.onClose();
-    CloudFireStoreService.cloudFireStoreService.changeOnlineStatus(false);
-  }
+  // @override
+  // void onInit()
+  // {
+  //   super.onInit();
+  //   CloudFireStoreService.cloudFireStoreService.changeOnlineStatus(true);
+  // }
+  // @override
+  // // TODO: implement isClosed
+  // void onClose()
+  // {
+  //   super.onClose();
+  //   CloudFireStoreService.cloudFireStoreService.changeOnlineStatus(false);
+  // }
 
 
 }

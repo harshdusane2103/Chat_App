@@ -42,6 +42,13 @@ dependencies:
   google_sign_in: ^6.2.1
   cloud_firestore: ^5.4.0
   flutter_local_notifications: ^17.2.3
+  popover: ^0.3.1
+  timezone: ^0.9.4
+  firebase_messaging: ^15.1.3
+  image_picker: ^1.1.2
+  firebase_storage: ^12.3.2
+  url_launcher: ^6.3.0
+
   
 
 
@@ -76,6 +83,10 @@ flutter:
     - assets/image/logo1.png
     - assets/image/bg.jpeg
     - assets/image/bg2.jpeg
+    - assets/image/chat.jpg
+    - assets/image/logo3.gif
+    - assets/image/img1.jpg
+    - assets/image/img2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
