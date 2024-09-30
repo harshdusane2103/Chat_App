@@ -1,8 +1,9 @@
-<h1>THE CHAT APP</h1>
+<h1 align="center">THE CHAT APP</h1>
+<h1>______________________________</h1>
 <h3>Firebase Auth, Google Sign In, Add User to Cloud Fire Store </h3>
 
 <div align="center">
-  <h4>Description :</h4>
+  <h4 align="left">Description :</h4>
 <p>
 Firebase Authentication (Email):Enable Firebase Email/Password Authentication to allow users to register and log in using email credentials.
 Google Authentication: Enable Google Sign-In in Firebase Auth for easy authentication with Google accounts.
