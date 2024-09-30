@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   String? name, email, image, phone, token;
-  bool isOnline,isTyping;
+  bool isOnline,isTyping,read;
+  Timestamp timestamp;
 
   UserModel(
       {required this.name,
@@ -9,7 +12,9 @@ class UserModel {
       required this.phone,
       required this.token,
       required this.isOnline,
-        required this.isTyping
+        required this.isTyping,
+        required this.timestamp,
+        required this.read
       });
 
   factory UserModel.fromMap(Map m1) {
@@ -21,6 +26,8 @@ class UserModel {
       token: m1['token'],
       isOnline: m1['isOnline']??false,
       isTyping: m1['isTyping']??false,
+      timestamp: m1['timestamp'],
+      read: m1['read']?? false,
     );
   }
 
@@ -33,6 +40,8 @@ class UserModel {
       'token': user.token,
       'isOnline':user.isOnline,
       'isTyping':user.isTyping,
+      'timestamp': user.timestamp,
+      'read':user.read,
 
     };
   }

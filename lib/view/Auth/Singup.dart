@@ -4,6 +4,7 @@ import 'package:chat_app/Services/auth_services.dart';
 import 'package:chat_app/Services/cloud_firestroe_service.dart';
 import 'package:chat_app/view/Auth/singin.dart';
 import 'package:chat_app/view/Home/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class SignUp extends StatelessWidget {
                 height: 300,
                 width: 400,
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  // color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -237,8 +238,10 @@ class SignUp extends StatelessWidget {
                                 "https://marketplace.canva.com/EAFuJ5pCLLM/1/0/1600w/canva-black-and-gold-simple-business-man-linkedin-profile-picture-BM_NPo97JwE.jpg",
                             phone: controller.txtPhone.text,
                             token: "--------------------",
-                            isOnline: true,
-                            isTyping: true,
+                            isOnline: false,
+                            isTyping: false,
+                            read: false,
+                            timestamp: Timestamp.now(),
                           );
 
                           CloudFireStoreService.cloudFireStoreService

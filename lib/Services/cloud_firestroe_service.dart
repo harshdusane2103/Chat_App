@@ -19,9 +19,11 @@ class CloudFireStoreService {
       'phone': user.phone,
       'image': user.image,
       'token': user.token,
-      'isOnline':false,
-      'isTyping0':false,
-      'timestamp':Timestamp.now(),
+      'isOnline':user.isOnline,
+      'isTyping':user.isTyping,
+      'timestamp':user.timestamp,
+      'read':user.read,
+
     });
   }
 
@@ -79,25 +81,53 @@ class CloudFireStoreService {
     String docId=doc.join("_");
     await fireStore.collection("chatroom").doc(docId).collection("chat").doc(dcId).delete();
   }
-  Future<void> toggleOnlineStatus(
-      bool status, Timestamp timestamp, bool isTyping) async {
+  Future<void> updateLastSeen() async {
     String email = AuthService.authService.getCurrentUser()!.email!;
-    await fireStore.collection("users").doc(email).update({
+    await fireStore.collection("user").doc(email).update({
+      'timestamp': Timestamp.now(),
+    });
+  }
+
+  Future<void> toggleOnlineStatus(bool status) async {
+    String email = AuthService.authService.getCurrentUser()!.email!;
+    await fireStore.collection("user").doc(email).update({
       'isOnline': status,
-      'timestamp': timestamp,
-      'isTyping': isTyping,
+    });
+  }
+
+  Future<void> toggleTypingStatus(bool status) async {
+    String email = AuthService.authService.getCurrentUser()!.email!;
+    await fireStore.collection("user").doc(email).update({
+      'typing': status,
     });
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> checkUserIsOnlineOrNot(
       String email) {
-    return fireStore.collection("users").doc(email).snapshots();
+    return  fireStore.collection("user").doc(email).snapshots();
+
   }
+
+
 
 
 }
 
 
+// Future<void> toggleOnlineStatus(
+//     bool status, Timestamp timestamp, bool isTyping) async {
+//   String email = AuthService.authService.getCurrentUser()!.email!;
+//   await fireStore.collection("users").doc(email).update({
+//     'isOnline': status,
+//     'timestamp': timestamp,
+//     'isTyping': isTyping,
+//   });
+// }
+//
+// Stream<DocumentSnapshot<Map<String, dynamic>>> checkUserIsOnlineOrNot(
+//     String email) {
+//   return fireStore.collection("users").doc(email).snapshots();
+// }
 
 
 // Future<void> changeOnlineStatus(bool status)

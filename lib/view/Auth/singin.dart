@@ -31,7 +31,7 @@ class SingIn extends StatelessWidget {
                 height: 300,
                 width: 400,
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  // color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     fit: BoxFit.cover,
