@@ -1,5 +1,5 @@
 <h1 align="center">THE CHAT APP</h1>
-<h1>______________________________</h1>
+
 <h3>Firebase Auth, Google Sign In, Add User to Cloud Fire Store </h3>
 
 <div align="center">
