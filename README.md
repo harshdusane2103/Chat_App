@@ -21,8 +21,12 @@ Local Notifications Setup: Add the flutter_local_notifications package to handle
 
 
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/8afb6900-bc2d-4bfb-a343-b10e87dc0e1e">
+  <video src="https://github.com/user-attachments/assets/a93b35c5-ddb6-4756-a6dd-3f61692912ba">
 </div>
+
+
+
+
 <div align="center">
 
 <img src="https://github.com/user-attachments/assets/9b6c8b78-b511-47b8-9e83-f3d652d386ef">
