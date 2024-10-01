@@ -42,7 +42,16 @@ Local Notifications Setup: Add the flutter_local_notifications package to handle
 <div align="center">
   <video src="https://github.com/user-attachments/assets/20cb831d-9960-401d-8e89-8c38bcd4dfa3">
 </div>
+<h3> Update & Delete :</h3>
+    
+ <div align="center">
+  <video src="https://github.com/user-attachments/assets/b667f0f7-64bc-42f4-b80b-60b2c9c5a868">
+</div>
 <div align="center"> <a href="https://github.com/harshdusane2103/Chat_App/tree/master/lib">👉👉Go to this File👈👈</a></div>
+
+
+
+
 
 
 
